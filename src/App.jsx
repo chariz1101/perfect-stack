@@ -77,8 +77,12 @@ function App() {
 
       {/* Camera-controlled container */}
       <div 
-        className="stack-container" 
-        style={{ transform: `translateY(${score * SLAB_HEIGHT}px)` }}
+  className="stack-container" 
+  style={{ 
+    // This calculation keeps the top ~3 slabs visible while showing the rest below
+    transform: `translateY(${Math.max(0, (score - 5) * SLAB_HEIGHT)}px)`,
+    transition: 'transform 1s cubic-bezier(0.2, 0, 0.2, 1)' 
+  }}
       >
         {stack.map((slab, index) => (
           <div key={slab.id} className="slab" style={{
