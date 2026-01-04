@@ -85,15 +85,35 @@ function App() {
   }}
       >
         {stack.map((slab, index) => (
-          <div key={slab.id} className="slab" style={{
-            bottom: index * SLAB_HEIGHT,
-            left: slab.x,
-            width: slab.width,
-            height: SLAB_HEIGHT - 2,
-            backgroundColor: slab.color,
-            boxShadow: `0 10px 20px ${slab.color}44`
-          }} />
-        ))}
+  <React.Fragment key={slab.id}>
+    {/* The Slab itself */}
+    <div className="slab" style={{
+      bottom: index * SLAB_HEIGHT,
+      left: slab.x,
+      width: slab.width,
+      height: SLAB_HEIGHT - 2,
+      backgroundColor: slab.color,
+      boxShadow: `0 10px 20px ${slab.color}44`
+    }} />
+    
+    {/* Floor Marker - Appears every 5 floors */}
+    {index % 5 === 0 && index !== 0 && (
+      <div style={{
+        position: 'absolute',
+        bottom: index * SLAB_HEIGHT,
+        left: -60,
+        color: 'rgba(255,255,255,0.3)',
+        fontSize: '12px',
+        fontWeight: 'bold',
+        borderBottom: '1px solid rgba(255,255,255,0.1)',
+        width: '500px',
+        pointerEvents: 'none'
+      }}>
+        FLOOR {index}
+      </div>
+    )}
+  </React.Fragment>
+))}
 
         {!isGameOver && (
           <div 
